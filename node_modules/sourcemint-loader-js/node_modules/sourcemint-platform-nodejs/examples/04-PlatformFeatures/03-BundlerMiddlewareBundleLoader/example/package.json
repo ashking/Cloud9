@@ -1,0 +1,20 @@
+{
+    "main": "./main.js",
+    "mappings": {
+        "sub": "../sub-package"
+    },
+    "config": {
+        "github.com/sourcemint/bundler-js/0/-meta/config/0": {
+            "modules": {
+                "/main.js": {
+                    "dynamicLinks": [
+                        "./sub-module.js"
+                    ]
+                },
+                "/sub-module.js": {
+                    "bundleLoader": true
+                }
+            }
+        }
+    }
+}

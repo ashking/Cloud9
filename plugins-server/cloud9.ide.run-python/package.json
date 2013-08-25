@@ -1,0 +1,17 @@
+{
+    "name": "cloud9.ide.run-python",
+    "version": "0.0.1",
+
+    "main": "./run-python.js",
+    "private": true,
+
+    "plugin": {
+        "consumes": [
+            "ide",
+            "process-manager",
+            "run-python",
+            "ide.ext.state",
+            "eventbus"
+        ]
+    }
+}

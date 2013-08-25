@@ -1,0 +1,14 @@
+<a:application xmlns:a="http://ajax.org/2005/aml">
+    <a:window id="winSettings"
+      skin      = "fm-window"
+      class     = "unselectable"
+      title     = "Preferences"
+      flex      = "1"
+      minwidth  = "240"
+      modal     = "false"
+      model     = "{require('ext/settings/settings').model}"
+      optimize  = "true">
+        <a:bar id="barSettings" skinset="prefs" anchors ="0 0 0 0" skin="bar-preferences" flex="1" scrollbar="sbShared 2 2 2">
+        </a:bar>
+    </a:window>
+</a:application>

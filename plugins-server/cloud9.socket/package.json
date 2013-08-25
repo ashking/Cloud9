@@ -1,0 +1,17 @@
+{
+    "name": "cloud9.socket",
+    "version": "0.0.1",
+    "main": "socket-ext.js",
+    "private": true,
+
+    "plugin": {
+        "provides": ["workspace-socket"],
+        "consumes": [
+            "http",
+            "ide",
+            "session",
+            "workspace-permissions",
+            "smith.io.ide"
+        ]
+    }
+}

@@ -1,0 +1,84 @@
+<a:application xmlns:a="http://ajax.org/2005/aml">
+    <a:model id="mdlStatusBar">
+        <data><state isCodeEditor="false" showStatusbar="true"/></data>
+    </a:model>
+
+    <a:bar id="barIdeStatus" 
+      skin    = "bar-status" 
+      skinset = "c9statusbar"
+      class   = "expanded"
+      visible = "{{
+        apf.isTrue([mdlStatusBar::state/@isCodeEditor]) 
+        and
+        apf.isTrue([mdlStatusBar::state/@showStatusbar])
+      }}"
+      height  = "28"
+      bottom  = "3"
+      right   = "3">
+        <a:hbox height="23">
+            <a:label id="lblEditorStatus" 
+              caption = "" 
+              margin  = "2 3 0 3" 
+              visible = "{this.caption != ''}"/>
+            <a:label id="lblSelectionLength" 
+              caption = "" 
+              margin  = "2 3 0 3"
+              visible = "{this.caption != ''}"
+              onclick = "require('ext/statusbar/statusbar').toggleSelectionLength()"
+            />
+            <a:label id="lblRowCol"
+              class   = "lbl_row_col"
+              margin  = "2 6 0 3"
+              onclick = "require('core/ide').dispatchEvent('gotoline')"
+            />
+            <a:divider class="divider-status-bar" width="2" height="20" margin="1 0 1 0" />
+            <a:hbox id="hboxStatusBarSettings" style="overflow:hidden">
+                <a:button id="btnSbPrefs"
+                  skin    = "btn-statusbar-icon" 
+                  skinset = "c9statusbar"
+                  height  = "23"
+                  icon    = "pref-ico.png" 
+                  submenu = "mnuStatusBarPrefs"
+                  submenudir = "up" />
+            </a:hbox>
+        </a:hbox>
+    </a:bar>
+    
+    <a:menu id="mnuStatusBarPrefs"
+      ref   = "{btnSbPrefs}"
+      class = "mnuSbPrefs"
+      sticky = "true"
+      render = "runtime"
+      model  = "{require('ext/settings/settings').model}">
+      <a:item type="check" caption="Show Invisibles" checked="[editors/code/@showinvisibles]" model  = "{require('ext/settings/settings').model}"/>
+      <a:item type="check" caption="Code Folding" checked="[editors/code/@folding]" />
+      <a:item type="check" caption="Full Line Selection" value="[editors/code/@selectstyle]" values="line|text" />
+      <a:item type="check" caption="Highlight Active Line" checked="[editors/code/@activeline]" />
+      <a:item type="check" caption="Highlight Gutter Line" checked="[editors/code/@gutterline]" />
+      <a:item type="check" caption="Show Gutter" checked="[editors/code/@gutter]" />
+      <a:item type="check" caption="Show Indent Guides" checked="[editors/code/@showindentguides]" />
+      <a:item type="check" caption="Highlight Selected Word" checked="[editors/code/@highlightselectedword]" />
+      <a:item type="check" caption="Auto-pair Brackets, Quotes, etc." checked="[editors/code/@behaviors]" />
+      <a:item type="check" caption="Wrap Selection with Brackets, etc." checked="[editors/code/@wrapbehaviors]" />
+      <a:item type="check" caption="Auto-hide Horizontal Scrollbar" checked="[editors/code/@autohidehorscrollbar]" />
+      <a:item type="check" caption="Wrap Lines" checked="[{tabEditors.getPage(tabEditors.activepage).$model}::@wrapmode]" id="itmSbWrap" />
+      <a:item type="check" caption="To Viewport" checked="[editors/code/@wrapmodeViewport]" disabled="{!itmSbWrap.checked}" />
+      <a:divider />
+      <a:hbox edge="0 5 2 23" align="center">
+          <a:label flex="1" style="padding: 2px 2px 2px 0">Font Size</a:label>
+          <a:spinner value="[editors/code/@fontsize]" realtime="true" min="1" max="72" width="50" />
+      </a:hbox>
+      <a:hbox edge="0 5 2 0" align="center">
+          <a:checkbox label="Show Print Margin" value="[editors/code/@showprintmargin]" flex="1" skin="checkbox-menu" />
+          <a:spinner value="[editors/code/@printmargincolumn]" realtime="true" min="1" max="200" width="50" />
+      </a:hbox>
+      <a:hbox edge="0 5 2 0" align="center">
+          <a:checkbox label="Insert Spaces as Soft Tabs" value="[editors/code/@softtabs]" flex="1" skin="checkbox-menu"/>
+          <a:spinner value="[editors/code/@tabsize]" realtime="true" min="1" max="64" width="50" />
+      </a:hbox>
+      <a:hbox edge="0 5 2 23" align="center">
+          <a:label flex="1" style="padding: 2px 2px 2px 0">Mouse Scroll Speed</a:label>
+          <a:spinner value="[editors/code/@scrollspeed]" min="1" max="8" width="50" />
+      </a:hbox>
+    </a:menu>
+</a:application>

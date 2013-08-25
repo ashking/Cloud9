@@ -1,0 +1,60 @@
+<a:application xmlns:a="http://ajax.org/2005/aml">
+    <a:appsettings name="ide" debug="false"
+      disable-space             = "true"
+      auto-hide-loading         = "true"
+      allow-select              = "false"
+      allow-blur                = "false"
+      initdelay                 = "false"
+      autoHideLoading           = "false"
+      storage                   = "cookie"
+      baseurl                   = "{apf.host ? apf.host : ''}"
+      requested-with-getparam   = "xhr"
+      csrf-header                = "{window.cloud9config._csrf}"/>
+
+    <!-- default model -->
+    <a:model />
+
+    <a:state id="stServerConnected" active="false" />
+    <a:state id="stProcessRunning" active="false" />
+
+    <a:scrollbar
+        id       = "sbShared"
+        skin     = "sbios"
+        top      = "0"
+        right    = "0"
+        bottom   = "0"
+        width    = "7"
+        showonscroll = "true"
+        zindex   = "100000"
+    />
+
+    <a:vsplitbox anchors="0 0 0 0" id="vbMain">
+        <a:bar skin="c9-menu-bar" id="logobar" height="31" minwidth="900">
+            <a:bar class="fakehbox aligncenter padding3" id="barTools" height="25" style="padding-top:1px">
+                <a:divider skin="c9-divider-double" style="margin-left:-1px" />
+            </a:bar>
+            <a:bar style="float:right;" class="fakehbox aligncenter padding3" id="barExtras">
+                <a:divider skin="c9-divider" visible="false" />
+            </a:bar>
+        </a:bar>
+
+        <a:hsplitbox>
+            <a:vsplitbox id="consoleRow" splitter="true">
+                <a:vsplitbox id="searchRow">
+                    <a:vsplitbox id="editorRow">
+                        <a:hsplitbox id="hboxTabBar" height="27">
+                            <a:bar id="barButtonContainer" class="editor_tab" style="line-height:0" />
+                        </a:hsplitbox>
+                        <a:hsplitbox id="hboxMain" splitter="true">
+                            <a:bar id="colLeft" width="1" minwidth="105" visible="false" />
+                            <a:hsplitbox>
+                                <a:vsplitbox id="colMiddle" padding="3" />
+                            </a:hsplitbox>
+                        </a:hsplitbox>
+                    </a:vsplitbox>
+                </a:vsplitbox>
+            </a:vsplitbox>
+            <a:hbox id="hboxDockPanel" class="hboxdockpanel" width="0" pack="end"/>
+        </a:hsplitbox>
+    </a:vsplitbox>
+</a:application>

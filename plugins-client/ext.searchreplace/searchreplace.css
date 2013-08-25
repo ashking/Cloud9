@@ -1,0 +1,41 @@
+#divSearchCount {
+    position: absolute;
+    width: auto;
+    height: 19px;
+    right: 51px;
+    top: 10px;
+    z-index : 100;
+}
+
+#divSearchCount .searchIter,
+#divSearchCount .searchTotal {
+    color: #aaa;
+    font-size: 11px;
+    height: 19px;
+    line-height: 19px;
+    text-align: center;
+    vertical-align: middle;
+    display:inline;
+    float: left;
+}
+
+#divSearchCount .searchIter {
+    margin: 0 1px 0 0;
+    padding: 0 0 0 7px;
+}
+
+#divSearchCount .searchTotal {
+    margin: 0;
+    padding: 0 5px 0 2px;
+}
+
+.tb_textbox.searchTxt .sbtb_middle input {
+    width: 100%;
+}
+
+.btnquicksearchnav.btnquicksearchnavLeft .lbl span {
+    background-image: url("{ide.staticPrefix}/ext/main/style/icons/arrow_left_search.png");
+}
+.btnquicksearchnav.btnquicksearchnavRight .lbl span {
+    background-image: url("{ide.staticPrefix}/ext/main/style/icons/arrow_right_search.png");
+}

@@ -1,0 +1,167 @@
+<a:application xmlns:a="http://ajax.org/2005/aml">
+    <a:tab id="tabDebugButtons" skin="dockbar" visible="false">
+        <a:page id="pgDebugNav" render="runtime">
+            <a:hbox padding="3" edge="4 3 5">
+                <div class="expand-panel-bg"></div>
+                <a:button id="btnResume" tooltip="Resume"
+                  icon     = "play.png"
+                  command  = "resume"
+                  skin     = "c9-sidepanelsbutton"
+                  disabled = "{dbg.state != 'stopped'}" />
+                <a:button  tooltip="Suspend"
+                  skin     = "c9-sidepanelsbutton"
+                  icon     = "pause.png"
+                  onclick  = "require('ext/debugger/debugger').suspend();"
+                  disabled = "{dbg.state == 'stopped' or !dbg.state}"/>
+                <a:divider skin="c9-divider" />
+                <a:button id="btnStepOver" tooltip="Step Over"
+                  icon     = "step.png"
+                  skin     = "c9-sidepanelsbutton"
+                  command  = "stepover"
+                  disabled = "{dbg.state != 'stopped'}" />
+                <a:button id="btnStepInto" tooltip="Step Into"
+                  icon     = "stepinto.png" 
+                  skin     = "c9-sidepanelsbutton"
+                  command  = "stepinto" 
+                  disabled = "{dbg.state != 'stopped'}" />
+                <a:button id="btnStepOut" tooltip="Step Out"
+                  icon     = "stepback.png" 
+                  skin     = "c9-sidepanelsbutton"
+                  command  = "stepout"
+                  disabled = "{dbg.state != 'stopped'}" />
+                <a:divider skin="c9-divider" />
+                <!--<a:button id="btnStepThrough" tooltip="Step Through"
+                  icon     = "stepthrough.png" 
+                  skin     = "c9-sidepanelsbutton"
+                  command  = "stepout"
+                  disabled = "{dbg.state != 'stopped'}" />-->
+            </a:hbox>
+        </a:page>
+    </a:tab>
+    <a:tab id="tabDebug" skin="docktab" visible="false" activepage="0" buttons="close">
+        <a:page id="dbgCallStack" caption="Call Stack" render="runtime" prerender="true">
+            <a:datagrid
+              id         = "dgStack"
+              anchors    = "0 0 0 0"
+              border     = "0"
+              options    = "size|move"
+              caching    = "false"
+              model      = "mdlDbgStack"
+              class      = "noscrollbar"
+              scrollbar  = "sbShared 20 2 2"
+              disabled   = "{dbg.state != 'stopped'}"
+              selected   = "{dbg.activeframe}">
+                <a:actions />
+                <a:each match="[frame]">
+                    <a:column caption="Function" value="[@name]" width="60%" icon2="debugger/stckframe_obj.gif" />
+                    <a:column caption="Script" value="[@script]" width="40%" />
+                    <a:column caption="Ln" value="{parseInt([@line])+1}" width="30"/>
+                    <a:column caption="Col" value="[@column]" width="30"/>
+                </a:each>
+            </a:datagrid>
+        </a:page>
+        <a:page id="dbInteractive" caption="Interactive" render="runtime">
+            <a:toolbar>
+                <a:bar border="0 0 1 0">
+                    <a:button
+                      disabled = "{!dbg.state}"
+                      caption  = "Execute" 
+                      tooltip  = "Ctrl+Enter"
+                      onclick  = "
+                        require('ext/debugger/inspector').consoleTextHandler({keyCode:13,ctrlKey:true})
+                      " />
+                    <a:button
+                      disabled2 = "{!txtCode.value.trim()}"
+                      caption  = "Clear" 
+                      onclick  = "
+                        txtCode.clear();
+                        txtInteractiveOutput.clear();
+                      " />
+                    <a:divider skin2="c9-divider"/>
+                    <a:dropdown id="lstScripts"
+                      skin2       = "black_dropdown"
+                      margin     = "3 0 0 4"
+                      width      = "120"
+                      maxitems   = "10"
+                      model      = "mdlDbgSources"
+                      disabled   = "{dbg.state == null}" 
+                      each       = "[file]"
+                      caption    = "[@text]"
+                      autoselect = "false"
+                      icon       = "debugger/file_obj.gif" />
+                </a:bar>
+            </a:toolbar>
+            <a:vsplitbox anchors="29 0 0 0" splitter="true" class="topsplitter">
+                <a:codeeditor id="txtCode" 
+                  disabled          = "{!dbg.state}"
+                  onkeydown         = "return require('ext/debugger/inspector').consoleTextHandler(event)" 
+                  realtime          = "true"
+                  syntax            = "javascript"
+                  border            = "0"
+                  minheight         = "30"
+                  value             = "[auto/console/input]"
+                  softtabs          = "[editors/code/@softtabs]"
+                  tabsize           = "[editors/code/@tabsize]"
+                  scrollspeed       = "[editors/code/@scrollspeed]"
+                  theme             = "[editors/code/@theme]"
+                  selectstyle       = "[editors/code/@selectstyle]"
+                  activeline        = "[editors/code/@activeline]"
+                  showinvisibles    = "[editors/code/@showinvisibles]"
+                  animatedscroll    = "[editors/code/@animatedscroll]"
+                  fontsize          = "[editors/code/@fontsize]"
+                  showprintmargin   = "false"
+                  caching           = "false"
+                  highlightselectedword = "[editors/code/@highlightselectedword]"
+                  printmargincolumn = "0" />
+                <a:text id="txtInteractiveOutput"
+                  class      = "interactive_output"
+                  scrolldown = "true"
+                  focussable = "true"
+                  textselect = "true" 
+                  height     = "60"
+                  scrollbar  = "sbShared 20 2 2" />
+            </a:vsplitbox>
+        </a:page>
+        <a:page id="dbgVariable" caption="Variables" render="runtime">
+            <a:datagrid id="dgVars"
+              anchors    = "0 0 0 0" 
+              border     = "0"
+              class      = "noscrollbar"
+              scrollbar  = "sbShared 20 2 2"
+              options    = "size|move"
+              prerender  = "false"
+              caching    = "false"
+              model      = "[{dbg.activeframe}::vars]"
+              disabled   = "{dbg.state != 'stopped'}"
+              loading-message = "Calculating...">
+                <a:actions />
+                <a:each match="[item|globals]" sort="[@name]">
+                    <a:insert match="[globals]" get="{adbg.loadFrame(dbg, {dbg.activeframe})}"/>
+                    <a:insert match="[item[@children='true']]" get="{adbg.loadObject(dbg, %[.])}" />
+                    <a:column caption="Property" value="{[@name] || 'Globals'}" width="40%" icon="debugger/genericvariable_obj.gif" tree="true" />
+                    <a:column caption="Value" value="[@value]" width="60%" />
+                    <a:column caption="Type" value="[@type]" width="50"/>
+                </a:each>
+            </a:datagrid>
+        </a:page>
+        <a:page id="dbgBreakpoints" caption="Breakpoints" render="runtime" prerender="true">
+            <a:list id="lstBreakpoints"
+              autoselect = "false"
+              reselectable = "true"
+              anchors    = "0 0 0 0"
+              skin       = "breakpoints"
+              scrollbar  = "sbShared 2 2 2"
+              border     = "0"
+              model      = "mdlDbgBreakpoints"
+              mode       = "check"
+              each       = "[breakpoint]"
+              checked    = "[@enabled]">
+                <a:caption>
+                    [@text]
+                    <a:remove match="[file|folder]" />
+                    <div>[@content]</div>
+                </a:caption>
+            </a:list>
+        </a:page>
+    </a:tab>
+</a:application>

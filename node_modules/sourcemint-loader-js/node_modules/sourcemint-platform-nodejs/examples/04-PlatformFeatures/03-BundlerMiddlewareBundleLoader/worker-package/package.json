@@ -1,0 +1,14 @@
+{
+    "main": "./main.js",
+    "config": {
+        "github.com/sourcemint/bundler-js/0/-meta/config/0": {
+            "modules": {
+                "/main.js": {
+                    "dynamicLinks": [
+                        "./sub-module.js"
+                    ]
+                }
+            }
+        }
+    }    
+}

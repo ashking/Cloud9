@@ -1,0 +1,15 @@
+{
+    "name": "cloud9.ide.revisions",
+    "version": "0.0.1",
+
+    "main": "./revisions.js",
+    "private": true,
+
+    "plugin": {
+        "consumes": [
+            "ide",
+            "sandbox",
+            "vfs"
+        ]
+    }
+}
