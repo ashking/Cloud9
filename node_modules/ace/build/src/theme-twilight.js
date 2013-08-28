@@ -3,7 +3,7 @@
  *
  * Copyright (c) 2010, Ajax.org B.V.
  * All rights reserved.
- *
+ * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *     * Redistributions of source code must retain the above copyright
@@ -40,8 +40,10 @@ color: #E2E2E2\
 width: 1px;\
 background: #232323\
 }\
-.ace-twilight {\
-background-color: #141414;\
+.ace-twilight .ace_scroller {\
+background-color: #141414\
+}\
+.ace-twilight .ace_text-layer {\
 color: #F8F8F8\
 }\
 .ace-twilight .ace_cursor {\
@@ -85,7 +87,7 @@ color: #CDA869\
 .ace-twilight .ace_constant.ace_character,\
 .ace-twilight .ace_constant.ace_character.ace_escape,\
 .ace-twilight .ace_constant.ace_other,\
-.ace-twilight .ace_heading,\
+.ace-twilight .ace_markup.ace_heading,\
 .ace-twilight .ace_support.ace_constant {\
 color: #CF6A4C\
 }\
@@ -108,7 +110,7 @@ border-color: #F8F8F8\
 .ace-twilight .ace_support.ace_function {\
 color: #DAD085\
 }\
-.ace-twilight .ace_list,\
+.ace-twilight .ace_markup.ace_list,\
 .ace-twilight .ace_storage {\
 color: #F9EE98\
 }\
@@ -133,8 +135,11 @@ color: #7587A6\
 .ace-twilight .ace_xml-pe {\
 color: #494949\
 }\
+.ace-twilight .ace_markup.ace_underline {\
+text-decoration: underline\
+}\
 .ace-twilight .ace_indent-guide {\
-background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAEklEQVQImWMQERFpYLC1tf0PAAgOAnPnhxyiAAAAAElFTkSuQmCC) right repeat-y;\
+background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAYAAACZgbYnAAAAEklEQVQImWMQERH5zzBz5sz/AA5EBAYqeZXWAAAAAElFTkSuQmCC) right repeat-y\
 }";
 
 var dom = require("../lib/dom");
