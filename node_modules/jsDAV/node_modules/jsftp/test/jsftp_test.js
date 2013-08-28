@@ -48,7 +48,7 @@ describe("jsftp test suite", function() {
         setTimeout(function() {
             ftp = new Ftp(FTPCredentials);
             next();
-        }, 400);
+        }, 200);
     });
 
     afterEach(function(next) {
@@ -61,7 +61,7 @@ describe("jsftp test suite", function() {
                 ftp = null;
             }
             next();
-        }, 200);
+        }, 100);
     }),
 
     it("test features command", function(next) {

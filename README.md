@@ -9,7 +9,7 @@ For more information, [refer Cloud9's original authours](https://github.com/ajax
 
 Requirements:
 
-  * NodeJS `>= 0.6.16` but not more than `>0.7.xx` ;-)
+  * NodeJS `>= 0.6.16` but not more than `>0.8.xx` ;-)
   * NPM `>= 1.1.16`
 
 Install:
@@ -34,12 +34,12 @@ Install package dependencies:
 _CentOS_ or _RHEL_ or _Fedora_: `sudo yum -y install libssl-dev git-core pkg-config pkgconfig build-essential curl gcc g++ libxml2-dev`
 
 #####Step 3:
-Install nvm (Node version manager) and node v0.6.19
+Install nvm (Node version manager) and node v0.8.22
 
 `git clone git://github.com/creationix/nvm.git ~/.nvm
 echo '. ~/.nvm/nvm.sh' >> ~/.bashrc && . ~/.bashrc
-nvm install v0.6.19
-nvm use v0.6.19`
+nvm install v0.8.22
+nvm use v0.8.22`
 
 #####Step 4:
 Clone Cloud9 Repo
@@ -49,7 +49,7 @@ Clone Cloud9 Repo
 #####Step 5:
 Add alias to .bashrc ;-), a trick!!
 
-`echo 'alias cloud9=~/.nvm/v0.6.19/bin/node ~/.cloud9/server.js -w' >> ~/.bashrc && . ~/.bashrc`
+`echo 'alias cloud9=~/.nvm/v0.8.22/bin/node ~/.cloud9/server.js -w' >> ~/.bashrc && . ~/.bashrc`
 
 #####Step 6:
 Install, if any, missing node modules
@@ -82,6 +82,14 @@ You can either do this by adding a reverse proxy in front of Cloud9,
 or use the built in basic authentication through the `--username` and `--password` flags.
 
 `cloud9 --username node --password express`
+
+## Changelog
+#####28th August, 2013
+- Works with node 0.8.22
+- updated Cloud9 to [commit](https://github.com/ajaxorg/cloud9/tree/4bfa8f805a01760f8ed44f8219bb6bceae155cf4)
+
+#####25th August, 2013
+- Initial commit
 
 ## Contributing
 Cloud9 wouldn't be where it is now without contributions. Feel free to [fork and improve/enhance Cloud9](https://github.com/ajaxorg/cloud9) in any way your want. If you feel that the Cloud9 community will benefit from your changes, please open a pull request. 

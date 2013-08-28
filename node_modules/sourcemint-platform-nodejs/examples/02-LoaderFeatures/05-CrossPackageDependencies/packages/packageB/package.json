@@ -1,9 +1,0 @@
-{
-    "mappings": {
-        "package": "../packageA",
-        "letters": "../packageC"
-    },
-    "directories": {
-        "lib": "words"
-    }
-}
